@@ -4,6 +4,15 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
-
-    <style name="Theme.GoalConnect" parent="Base.Theme.GoalConnect" />
+    <style name="Theme.GoalConnect" parent="Base.Theme.GoalConnect">
+        <item name="windowSplashScreenBackground">@color/primary</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logo</item>
+        <item name="postSplashScreenTheme">@style/Base.Theme.GoalConnect</item>
+    </style>
+    <style name="Theme.App.GoalConnect" parent="Theme.GoalConnect">
+        <item name="windowSplashScreenBackground">@color/primary</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logo</item>
+        <item name="windowSplashScreenAnimationDuration">1000</item>
+        <item name="postSplashScreenTheme">@style/Base.Theme.GoalConnect</item>
+    </style>
 </resources>
