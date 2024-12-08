@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">GoalConnect</string>
+    <string name="goalconnect">GoalConnect</string>
+    <string name="join_the_volunteer_n_program">Join the Volunteer \n Program</string>
+    <string name="buat_perbedaan_di_komunitasmu">Buat perbedaan di komunitasmu !</string>
+    <string name="get_started">Get Started</string>
+    <string name="username_kamu">Username Kamu</string>
+    <string name="username">Username</string>
+    <string name="password_kamu">Password Kamu</string>
+    <string name="email">Email</string>
+    <string name="email_kamu">Email Kamu</string>
+    <string name="password">Password</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="or_sign_in_with">Or Register with</string>
+    <string name="line">line</string>
 </resources>
