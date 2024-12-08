@@ -133,11 +133,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton"
+        app:layout_constraintTop_toBottomOf="@+id/btn_sign_up"
         app:layout_constraintVertical_bias="0.138" />
 
     <ImageButton
-        android:id="@+id/btn_google"
+        android:id="@+id/btn_google_sign_in"
         android:layout_width="362dp"
         android:layout_height="70dp"
         android:background="@drawable/google_button"
@@ -164,13 +164,14 @@
         app:layout_constraintTop_toTopOf="@+id/textView7" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/btn_sign_up"
         android:layout_width="375dp"
         android:layout_height="70dp"
         android:layout_marginTop="104dp"
         android:background="@drawable/sign_up_button"
         android:contentDescription="@string/sign_up"
         android:scaleType="fitCenter"
+        android:onClick="signingGoogle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.555"

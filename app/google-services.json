@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1032746273364",
+    "project_id": "goalconnect-fc107",
+    "storage_bucket": "goalconnect-fc107.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1032746273364:android:dd98fd7d6ee1e8efe1bbc1",
+        "android_client_info": {
+          "package_name": "by.nosarahmanda.goalconnect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1032746273364-t7rdiu73h53607994ar98mmhufvsev3l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqL2AOFw_3XbT1yAfGN3ZmrFfSQdYeEUc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1032746273364-t7rdiu73h53607994ar98mmhufvsev3l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

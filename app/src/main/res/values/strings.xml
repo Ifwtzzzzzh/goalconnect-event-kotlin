@@ -13,4 +13,9 @@
     <string name="sign_up">Sign Up</string>
     <string name="or_sign_in_with">Or Register with</string>
     <string name="line">line</string>
+    <string name="logo">logo</string>
+
+    <string name="default_web_client_id">1032746273364-t7rdiu73h53607994ar98mmhufvsev3l.apps.googleusercontent.com</string>
+    <string name="admob_api_id">AIzaSyBVUxSbzQxZMq1BNZchVFFlwygmw1kh4w</string>
+    <string name="log_out">Log out</string>
 </resources>

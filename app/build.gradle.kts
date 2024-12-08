@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -15,6 +16,10 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildFeatures {
+        viewBinding = true
     }
 
     buildTypes {
@@ -46,5 +51,17 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    implementation("androidx.core:core-splashscreen:1.0.0")
+    implementation(libs.androidx.core.splashscreen)
+//    implementation(platform(libs.firebase.bom))
+//    implementation(libs.firebase.auth)
+//    implementation(libs.play.services.auth)
+//    implementation(libs.firebase.analytics)
+
+    implementation(libs.google.firebase.analytics)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.play.services.auth)
+    implementation(libs.firebase.auth.ktx)
+    implementation (libs.androidx.credentials)
+    implementation (libs.androidx.credentials.play.services.auth)
+    implementation (libs.googleid)
 }
