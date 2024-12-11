@@ -7,16 +7,21 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.material.BottomNavigation
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.material.badge.BadgeDrawable
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
+    private lateinit var bottomNavigationView: BottomNavigationView
+    private lateinit var badgeDrawable: BadgeDrawable
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -32,10 +37,14 @@ class HomeActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btn_log_out).setOnClickListener {
             signOut()
         }
+
+        bottomNavigationView = findViewById(R.id.bottom_navigation)
+        badgeDrawable = bottomNavigationView.getOrCreateBadge(R.id.navbar_home)
+        badgeDrawable.setNumber(2)
+        badgeDrawable.setVisible(true)
     }
 
     private fun setupGoogleSignIn() {
-        // Configure Google Sign-In options
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id)) // Use your Web Client ID
             .requestEmail()
@@ -45,15 +54,11 @@ class HomeActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
     }
     private fun signOut() {
-        // Sign out from Firebase
         auth.signOut()
-
-        // Sign out from Google
         googleSignInClient.signOut().addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                // Navigate the user to the Sign-In screen or update the UI
                 Toast.makeText(this, "Sign Out Successful", Toast.LENGTH_SHORT).show()
-                goToSignInScreen() // Replace with your navigation logic
+                goToSignInScreen()
             } else {
                 Toast.makeText(this, "Sign Out Failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
             }
@@ -61,7 +66,6 @@ class HomeActivity : AppCompatActivity() {
     }
     private fun revokeAccess() {
         auth.signOut()
-
         googleSignInClient.revokeAccess().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 Toast.makeText(this, "Access Revoked", Toast.LENGTH_SHORT).show()

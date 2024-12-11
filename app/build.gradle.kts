@@ -1,3 +1,4 @@
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -52,16 +53,12 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     implementation(libs.androidx.core.splashscreen)
-//    implementation(platform(libs.firebase.bom))
-//    implementation(libs.firebase.auth)
-//    implementation(libs.play.services.auth)
-//    implementation(libs.firebase.analytics)
-
     implementation(libs.google.firebase.analytics)
     implementation(platform(libs.firebase.bom))
     implementation(libs.play.services.auth)
     implementation(libs.firebase.auth.ktx)
-    implementation (libs.androidx.credentials)
-    implementation (libs.androidx.credentials.play.services.auth)
-    implementation (libs.googleid)
+    implementation(libs.androidx.credentials)
+    implementation(libs.androidx.credentials.play.services.auth)
+    implementation(libs.googleid)
+    implementation(libs.androidx.material)
 }
