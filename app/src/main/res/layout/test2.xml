@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeActivity">
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:background="@drawable/home_background"
+        android:contentDescription="@string/home"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/btn_log_out"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/log_out"
+            android:backgroundTint="@color/secondary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_gravity="center_horizontal" />
+
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bottom_app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:layout_gravity="bottom"
+            app:fabAlignmentMode="center"
+            app:fabAnchorMode="cradle"
+            app:fabCradleMargin="12dp"
+            app:fabCradleVerticalOffset="12dp">
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottom_navigation"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginHorizontal="48dp"
+                android:background="@android:color/transparent"
+                android:elevation="0dp"
+                app:menu="@menu/bottom_menu" />
+
+        </com.google.android.material.bottomappbar.BottomAppBar>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/calendar"
+            app:layout_anchor="@id/bottom_app_bar"
+            android:backgroundTint="@color/secondary"
+            app:layout_anchorGravity="center"
+            app:fabSize="normal"
+            app:useCompatPadding="true"
+            android:src="@drawable/baseline_calendar_today_24" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="200dp"
+                android:layout_weight="1"
+                android:contentDescription="@string/icon"
+                app:srcCompat="@drawable/baseline_notifications_24"
+                app:tint="@color/darker" />
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="50dp"
+                android:layout_weight="1"
+                android:contentDescription="@string/icon"
+                app:srcCompat="@drawable/baseline_settings_24"
+                app:tint="@color/darker" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="210dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="@string/lagi_mau_cari_event_apa_nih"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_hello_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="150dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/hallo_nosa"
+            android:textColor="@color/white"
+            android:textSize="40sp" />
+
+        <EditText
+            android:id="@+id/et_username"
+            android:layout_width="400dp"
+            android:layout_height="54dp"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="310dp"
+            android:autofillHints="no"
+            android:background="@drawable/edit_text"
+            android:backgroundTint="@color/light_brown"
+            android:drawableStart="@drawable/baseline_search_24"
+            android:drawablePadding="8dp"
+            android:ems="10"
+            android:fontFamily="@font/poppins_medium"
+            android:hint="@string/cari_event"
+            android:inputType="text"
+            android:paddingHorizontal="16dp"
+            android:textColor="@color/semi_light_brown"
+            android:textColorHint="@android:color/darker_gray"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/new_str"
+            android:textSize="33sp"
+            android:layout_marginTop="390dp"
+            android:layout_marginStart="32dp"
+            android:fontFamily="@font/poppins_semibold"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="400dp"
+            android:layout_height="153dp"
+            android:layout_marginTop="450dp"
+            android:layout_gravity="center_horizontal"
+            android:backgroundTint="@color/brown"
+            app:cardCornerRadius="26dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ilustration2"
+                    android:contentDescription="@string/icon" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/textView10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/penanaman_biji_pohon"
+                        android:textSize="20sp"
+                        android:textColor="@color/primary"
+                        android:fontFamily="@font/poppins_semibold"/>
+
+                    <TextView
+                        android:id="@+id/textView11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-10dp"
+                        android:text="@string/volunteer"
+                        android:textSize="13sp"
+                        android:textColor="@color/primary"
+                        android:fontFamily="@font/poppins_semibold"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="29dp"
+                        android:layout_weight="1">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="27dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="@color/primary"
+                                android:background="@drawable/baseline_location_pin_24"
+                                android:contentDescription="@string/icon" />
+
+                            <TextView
+                                android:id="@+id/textView12"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/hutan_kota_gbk"
+                                android:textSize="9sp"
+                                android:textColor="@color/primary"
+                                android:layout_gravity="center_vertical"
+                                android:fontFamily="@font/poppins_semibold"
+                                tools:ignore="SmallSp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <ImageButton
+                                android:layout_width="108dp"
+                                android:layout_height="29dp"
+                                android:background="@drawable/see_more_button"
+                                android:contentDescription="@string/icon" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/event"
+            android:textSize="33sp"
+            android:layout_marginTop="620dp"
+            android:layout_marginStart="32dp"
+            android:fontFamily="@font/poppins_semibold"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="400dp"
+            android:layout_height="153dp"
+            android:layout_marginTop="680dp"
+            android:layout_gravity="center_horizontal"
+            android:backgroundTint="@color/brown"
+            app:cardCornerRadius="26dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ilustration2"
+                    android:contentDescription="@string/icon" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/textView16"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/penanaman_biji_pohon"
+                        android:textSize="20sp"
+                        android:textColor="@color/primary"
+                        android:fontFamily="@font/poppins_semibold"/>
+
+                    <TextView
+                        android:id="@+id/textView17"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-10dp"
+                        android:text="@string/volunteer"
+                        android:textSize="13sp"
+                        android:textColor="@color/primary"
+                        android:fontFamily="@font/poppins_semibold"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="29dp"
+                        android:layout_weight="1">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="27dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="@color/primary"
+                                android:background="@drawable/baseline_location_pin_24"
+                                android:contentDescription="@string/icon" />
+
+                            <TextView
+                                android:id="@+id/textView18"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/hutan_kota_gbk"
+                                android:textSize="9sp"
+                                android:textColor="@color/primary"
+                                android:layout_gravity="center_vertical"
+                                android:fontFamily="@font/poppins_semibold"
+                                tools:ignore="SmallSp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <ImageButton
+                                android:layout_width="108dp"
+                                android:layout_height="29dp"
+                                android:background="@drawable/see_more_button"
+                                android:contentDescription="@string/icon" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/event"
+            android:textSize="33sp"
+            android:layout_marginTop="920dp"
+            android:layout_marginStart="32dp"
+            android:fontFamily="@font/poppins_semibold"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="400dp"
+            android:layout_height="153dp"
+            android:layout_marginTop="680dp"
+            android:layout_gravity="center_horizontal"
+            android:backgroundTint="@color/brown"
+            app:cardCornerRadius="26dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ilustration2"
+                    android:contentDescription="@string/icon" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/textView20"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/penanaman_biji_pohon"
+                        android:textSize="20sp"
+                        android:textColor="@color/primary"
+                        android:fontFamily="@font/poppins_semibold"/>
+
+                    <TextView
+                        android:id="@+id/textView21"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-10dp"
+                        android:text="@string/volunteer"
+                        android:textSize="13sp"
+                        android:textColor="@color/primary"
+                        android:fontFamily="@font/poppins_semibold"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="29dp"
+                        android:layout_weight="1">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="27dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="@color/primary"
+                                android:background="@drawable/baseline_location_pin_24"
+                                android:contentDescription="@string/icon" />
+
+                            <TextView
+                                android:id="@+id/textView22"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/hutan_kota_gbk"
+                                android:textSize="9sp"
+                                android:textColor="@color/primary"
+                                android:layout_gravity="center_vertical"
+                                android:fontFamily="@font/poppins_semibold"
+                                tools:ignore="SmallSp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <ImageButton
+                                android:layout_width="108dp"
+                                android:layout_height="29dp"
+                                android:background="@drawable/see_more_button"
+                                android:contentDescription="@string/icon" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</RelativeLayout>

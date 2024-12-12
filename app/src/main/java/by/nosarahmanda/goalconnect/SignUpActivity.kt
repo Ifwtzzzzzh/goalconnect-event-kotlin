@@ -2,6 +2,7 @@ package by.nosarahmanda.goalconnect
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -26,6 +27,8 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.auth
 
@@ -33,6 +36,10 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var mGoogleSignInClient: GoogleSignInClient
+    private lateinit var etUsername: EditText
+    private lateinit var etEmail: EditText
+    private lateinit var etPassword: EditText
+    private lateinit var btnSignUp: ImageButton
     private val reqCode:Int=123
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +59,35 @@ class SignUpActivity : AppCompatActivity() {
             Toast.makeText(this,"Logging In", Toast.LENGTH_SHORT).show()
             signInWithGoogle()
         }
+
+        etUsername = findViewById(R.id.et_username)
+        etEmail = findViewById(R.id.et_email)
+        etPassword = findViewById(R.id.et_password)
+        btnSignUp = findViewById(R.id.btn_sign_up)
+
+        btnSignUp.setOnClickListener {
+            val username = etUsername.text.toString().trim()
+            val email = etEmail.text.toString().trim()
+            val password = etPassword.text.toString().trim()
+
+            if (username.isEmpty()) {
+                etUsername.error = "Username is required"
+                return@setOnClickListener
+            }
+
+            if (email.isEmpty()) {
+                etEmail.error = "Email is required"
+                return@setOnClickListener
+            }
+
+            if (password.isEmpty()) {
+                etPassword.error = "Password is required"
+                return@setOnClickListener
+            }
+
+            signUpWithEmailPassword(username, email, password)
+        }
+
     }
 
     override fun onStart() {
@@ -98,5 +134,31 @@ class SignUpActivity : AppCompatActivity() {
                 finish()
             }
         }
+    }
+
+    private fun signUpWithEmailPassword(username: String, email: String, password: String) {
+        firebaseAuth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    val user = firebaseAuth.currentUser
+                    // User registration successful
+                    Toast.makeText(this, "Sign up successful!", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, HomeActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    if (task.exception is FirebaseAuthWeakPasswordException) {
+                        etPassword.error = "Weak password, please use at least 6 characters"
+                    } else if (task.exception is FirebaseAuthInvalidCredentialsException) {
+                        etEmail.error = "Invalid email format"
+                    } else {
+                        Toast.makeText(
+                            this,
+                            "Sign up failed: ${task.exception?.message}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
     }
 }

@@ -22,4 +22,19 @@
     <string name="profile">Profile</string>
     <string name="calendar">Calendar</string>
     <string name="home_background">Home Background</string>
+    <string name="hallo_nosa">Hallo Nosa</string>
+    <string name="lagi_mau_cari_event_apa_nih">Lagi Mau Cari Event Apa nih ?</string>
+    <string name="cari_event">Cari Event</string>
+    <string name="icon">icon</string>
+    <string name="new_str">New</string>
+    <string name="penanaman_biji_pohon">Penanaman Biji Pohon</string>
+    <string name="volunteer">Volunteer</string>
+    <string name="hutan_kota_gbk">Hutan Kota GBK</string>
+    <string name="event">Event</string>
+    <string name="music_party">Music Party</string>
+    <string name="booth_administration">Booth Administration</string>
+    <string name="panggung_ancol">Panggung Ancol</string>
+    <string name="festival_layangan">Festival Layangan</string>
+    <string name="fund_rising">Fund Rising</string>
+    <string name="tebet_eco_park">Tebet Eco Park</string>
 </resources>

@@ -2,11 +2,13 @@ package by.nosarahmanda.goalconnect
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.compose.material.BottomNavigation
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -40,7 +42,6 @@ class HomeActivity : AppCompatActivity() {
 
         bottomNavigationView = findViewById(R.id.bottom_navigation)
         badgeDrawable = bottomNavigationView.getOrCreateBadge(R.id.navbar_home)
-        badgeDrawable.setNumber(2)
         badgeDrawable.setVisible(true)
     }
 

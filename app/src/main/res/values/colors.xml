@@ -5,4 +5,7 @@
     <color name="primary">#0C5446</color>
     <color name="secondary">#FF6700</color>
     <color name="darker">#DBD0BD</color>
+    <color name="brown">#DBD0BD</color>
+    <color name="light_brown">#DADADA</color>
+    <color name="semi_light_brown">#979797</color>
 </resources>
