@@ -37,4 +37,7 @@
     <string name="festival_layangan">Festival Layangan</string>
     <string name="fund_rising">Fund Rising</string>
     <string name="tebet_eco_park">Tebet Eco Park</string>
+    <string name="belum_punya_akun">belum Punya Akun ?</string>
+    <string name="buat_di_sini">Buat di sini !</string>
+    <string name="login_ke_akun_mu_dulu_ya">Login Ke Akun mu dulu ya</string>
 </resources>

@@ -62,4 +62,8 @@ dependencies {
     implementation(libs.googleid)
     implementation(libs.androidx.material)
     implementation(libs.androidx.coordinatorlayout)
+    implementation(libs.firebase.firestore.ktx)
+    implementation(libs.androidx.recyclerview)
+    implementation(libs.material.v190)
+
 }

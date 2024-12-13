@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package by.nosarahmanda.goalconnect
 
 import android.content.Intent
@@ -5,32 +7,19 @@ import android.os.Bundle
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
-import androidx.activity.result.IntentSenderRequest
-import androidx.activity.result.contract.ActivityResultContract
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import by.nosarahmanda.goalconnect.databinding.ActivityMainBinding
 import by.nosarahmanda.goalconnect.databinding.ActivitySignUpBinding
-import com.google.android.gms.auth.api.identity.BeginSignInRequest
-import com.google.android.gms.auth.api.identity.SignInClient
-import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
-import com.google.firebase.Firebase
-import com.google.firebase.auth.AuthCredential
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.auth.auth
+
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
@@ -56,7 +45,6 @@ class SignUpActivity : AppCompatActivity() {
         mGoogleSignInClient= GoogleSignIn.getClient(this,gso)
 
         binding.btnGoogleSignIn.setOnClickListener{
-            Toast.makeText(this,"Logging In", Toast.LENGTH_SHORT).show()
             signInWithGoogle()
         }
 
@@ -85,7 +73,7 @@ class SignUpActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            signUpWithEmailPassword(username, email, password)
+            signUpWithEmailPassword(email, password)
         }
 
     }
@@ -93,6 +81,12 @@ class SignUpActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         if(GoogleSignIn.getLastSignedInAccount(this)!=null){
+            val user = firebaseAuth.currentUser
+            if (user?.email == "rahmandanosa@gmail.com") {
+                val intent = Intent(this, OwnerHomePageActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
             startActivity(Intent(this, HomeActivity::class.java))
             finish()
         }
@@ -103,6 +97,7 @@ class SignUpActivity : AppCompatActivity() {
         startActivityForResult(signInIntent,reqCode)
     }
 
+    @Deprecated("This method has been deprecated in favor of using the Activity Result API\n      which brings increased type safety via an {@link ActivityResultContract} and the prebuilt\n      contracts for common intents available in\n      {@link androidx.activity.result.contract.ActivityResultContracts}, provides hooks for\n      testing, and allow receiving results in separate, testable classes independent from your\n      activity. Use\n      {@link #registerForActivityResult(ActivityResultContract, ActivityResultCallback)}\n      with the appropriate {@link ActivityResultContract} and handling the result in the\n      {@link ActivityResultCallback#onActivityResult(Object) callback}.")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode==reqCode){
@@ -116,7 +111,7 @@ class SignUpActivity : AppCompatActivity() {
             val account: GoogleSignInAccount? =completedTask.getResult(ApiException::class.java)
             if (account != null) {
                 updateUI(account)
-                Toast.makeText(this, "Log In Successful", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Log In Successful", Toast.LENGTH_LONG).show()
             }
         } catch (e: ApiException){
             Toast.makeText(this,e.toString(), Toast.LENGTH_SHORT).show()
@@ -129,34 +124,45 @@ class SignUpActivity : AppCompatActivity() {
             if(task.isSuccessful) {
                 account.email.toString()
                 account.displayName.toString()
-                val intent = Intent(this, HomeActivity::class.java)
-                startActivity(intent)
-                finish()
+                val user = firebaseAuth.currentUser
+                if (user?.email == "rahmandanosa@gmail.com") {
+                    val intent = Intent(this, OwnerHomePageActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    Toast.makeText(this, "Welcome, ${user?.displayName}", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, HomeActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
             }
         }
     }
 
-    private fun signUpWithEmailPassword(username: String, email: String, password: String) {
+    private fun signUpWithEmailPassword(email: String, password: String) {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    val user = firebaseAuth.currentUser
-                    // User registration successful
+                    firebaseAuth.currentUser
                     Toast.makeText(this, "Sign up successful!", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, HomeActivity::class.java)
                     startActivity(intent)
                     finish()
                 } else {
-                    if (task.exception is FirebaseAuthWeakPasswordException) {
-                        etPassword.error = "Weak password, please use at least 6 characters"
-                    } else if (task.exception is FirebaseAuthInvalidCredentialsException) {
-                        etEmail.error = "Invalid email format"
-                    } else {
-                        Toast.makeText(
-                            this,
-                            "Sign up failed: ${task.exception?.message}",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                    when (task.exception) {
+                        is FirebaseAuthWeakPasswordException -> {
+                            etPassword.error = "Weak password, please use at least 6 characters"
+                        }
+                        is FirebaseAuthInvalidCredentialsException -> {
+                            etEmail.error = "Invalid email format"
+                        }
+                        else -> {
+                            Toast.makeText(
+                                this,
+                                "Sign up failed: ${task.exception?.message}",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
                 }
             }
