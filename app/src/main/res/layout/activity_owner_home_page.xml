@@ -16,6 +16,16 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/eventsRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="150dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/eventsWithoutLatestRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="150dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/newEventsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="150dp" />
 
 </LinearLayout>

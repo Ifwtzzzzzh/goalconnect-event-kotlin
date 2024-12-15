@@ -11,11 +11,11 @@
         android:layout_height="wrap_content"
         android:hint="Title" />
 
-<!--    <EditText-->
-<!--        android:id="@+id/dateEditText"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:hint="Date" />-->
+    <EditText
+        android:id="@+id/categoryEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Category" />
 
     <Button
         android:id="@+id/dateButton"

@@ -63,7 +63,7 @@ dependencies {
     implementation(libs.androidx.material)
     implementation(libs.androidx.coordinatorlayout)
     implementation(libs.firebase.firestore.ktx)
+    implementation(libs.firebase.database.ktx)
     implementation(libs.androidx.recyclerview)
     implementation(libs.material.v190)
-
 }

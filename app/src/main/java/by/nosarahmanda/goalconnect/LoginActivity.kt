@@ -60,8 +60,8 @@ class LoginActivity : AppCompatActivity() {
         txtSignUp.setOnClickListener {
             val user = firebaseAuth.currentUser
             if (user?.email == "rahmandanosa@gmail.com") {
-                val intent = Intent(this, SignUpActivity::class.java)
-//                val intent = Intent(this, OwnerHomePage::class.java)
+//                val intent = Intent(this, SignUpActivity::class.java)
+                val intent = Intent(this, OwnerHomePageActivity::class.java)
                 startActivity(intent)
                 finish()
             } else {
