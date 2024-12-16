@@ -24,6 +24,7 @@ class EventWithoutLatestAdapter(
         // val detailsTextView: TextView = view.findViewById(R.id.detailsTextView)
         val placeTextView: TextView = view.findViewById(R.id.placeTextView)
 //        val createdAtTextView: TextView = view.findViewById(R.id.createdAtTextView)
+        val indexImageTextView: TextView = view.findViewById(R.id.indexImageTextView)
         val editButton: Button = view.findViewById(R.id.editButton)
         val deleteButton: Button = view.findViewById(R.id.deleteButton)
     }
@@ -38,6 +39,7 @@ class EventWithoutLatestAdapter(
 //        holder.createdAtTextView.text = event.createdAt
         holder.titleTextView.text = event.titleEvent
         holder.categoryTextView.text = event.categoryEvent
+        holder.indexImageTextView.text = event.imageIndex.toString()
         holder.placeTextView.text = event.placeEvent
 //        holder.detailsTextView.text = "${event.dateEvent} \n${event.descriptionEvent}"
 

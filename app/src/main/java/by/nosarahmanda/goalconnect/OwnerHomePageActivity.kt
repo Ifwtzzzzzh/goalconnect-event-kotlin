@@ -37,6 +37,7 @@ class OwnerHomePageActivity : AppCompatActivity() {
     private var allEventWithoutLatest = mutableListOf<EventModel>()
     private var selectedDate = ""
     private var createdAt = getCurrentFormattedDate()
+    private var indexImage = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,14 +54,17 @@ class OwnerHomePageActivity : AppCompatActivity() {
         eventAdapter = EventAdapter(events, this::showEditDialog, this::deleteEvent)
         eventsRecyclerView.layoutManager = LinearLayoutManager(this)
         eventsRecyclerView.adapter = eventAdapter
+        refreshRecyclerView()
 
         eventWithoutLatestAdapter = EventWithoutLatestAdapter(allEventWithoutLatest, this::showEditDialog, this::deleteEvent)
         eventWithoutLatestRecyclerView.layoutManager = LinearLayoutManager(this)
         eventWithoutLatestRecyclerView.adapter = eventWithoutLatestAdapter
+        refreshRecyclerView()
 
         newEventAdapter = NewEventAdapter(newEvent, this::showEditDialog, this::deleteEvent)
         newEventsRecyclerView.layoutManager = LinearLayoutManager(this)
         newEventsRecyclerView.adapter = newEventAdapter
+        refreshRecyclerView()
 
         addEventButton.setOnClickListener { showAddDialog() }
         refreshRecyclerView()
@@ -69,6 +73,7 @@ class OwnerHomePageActivity : AppCompatActivity() {
     @SuppressLint("NotifyDataSetChanged")
     private fun loadEvents() {
         firestore.collection("events")
+            .orderBy("createdAt", Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener { querySnapshot ->
                 events.clear()
@@ -80,20 +85,83 @@ class OwnerHomePageActivity : AppCompatActivity() {
                     }
                 }
 
-                events.sortByDescending { it.createdAt }
+//                events.sortByDescending { it.createdAt }
                 eventAdapter.notifyDataSetChanged()
                 newEventAdapter.notifyDataSetChanged()
                 eventWithoutLatestAdapter.notifyDataSetChanged()
 
-                if (events.isNotEmpty()) {
-                    val latestEvent = events.first()
-                    eventAdapter.updateLatestEvent(latestEvent)
-                }
+//                if (events.isNotEmpty()) {
+//                    val latestEvent = events.first()
+//                    eventAdapter.updateLatestEvent(latestEvent)
+//                }
             }
             .addOnFailureListener {
                 Toast.makeText(this, "Failed to load events", Toast.LENGTH_SHORT).show()
             }
     }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun loadEventsWithoutNewest() {
+        firestore.collection("events")
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                allEventWithoutLatest.clear()
+                val allEvents = querySnapshot.documents.mapNotNull { doc ->
+                    val event = doc.toObject(EventModel::class.java)
+                    event?.apply { id = doc.id }
+                }
+
+                val sortedEvents = allEvents.sortedByDescending { it.createdAt }
+                if (sortedEvents.isNotEmpty()) {
+                    allEventWithoutLatest.addAll(sortedEvents.drop(1))
+                }
+
+                eventAdapter.notifyDataSetChanged()
+                eventWithoutLatestAdapter.notifyDataSetChanged()
+                newEventAdapter.notifyDataSetChanged()
+
+                if (sortedEvents.isNotEmpty()) {
+                    val latestEvent = sortedEvents.first()
+                    eventWithoutLatestAdapter.updateLatestEvent(latestEvent)
+                }
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Failed to load events: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun loadNewestEvent() {
+        firestore.collection("events")
+            .orderBy("createdAt", Query.Direction.DESCENDING)
+            .limit(1)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                if (querySnapshot.documents.isNotEmpty()) {
+                    val event = querySnapshot.documents[0].toObject(EventModel::class.java)
+                    if (event != null) {
+                        newEvent.clear()
+                        newEvent.add(event)
+                        newEventAdapter.notifyDataSetChanged()
+                    }
+                }
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Failed to load the newest event", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun refreshRecyclerView() {
+        loadEventsWithoutNewest()
+        loadEvents()
+        loadNewestEvent()
+    }
+
+//    private fun showIllustration(index: Int) {
+////        if (index % 1 == 1) {
+////
+////        }
+//    }
 
     private fun showAddDialog() {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.widget_dialog_add_event, null)
@@ -124,9 +192,15 @@ class OwnerHomePageActivity : AppCompatActivity() {
             val place = dialogView.findViewById<EditText>(R.id.placeEditText).text.toString()
             val description = dialogView.findViewById<EditText>(R.id.descriptionEditText).text.toString()
 
+            indexImage += 1
+            if (indexImage > 3) {
+                indexImage = 0;
+            }
+
             val newEvent = hashMapOf(
                 "titleEvent" to title,
                 "categoryEvent" to category,
+                "imageIndex" to indexImage,
                 "dateEvent" to selectedDate,
                 "placeEvent" to place,
                 "descriptionEvent" to description,
@@ -139,7 +213,7 @@ class OwnerHomePageActivity : AppCompatActivity() {
             }
             dialog.dismiss()
             refreshRecyclerView()
-            Toast.makeText(this, "Event Berhasil Ditambah!", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "$indexImage Event Berhasil Ditambah!", Toast.LENGTH_LONG).show()
         }
         dialog.show()
     }
@@ -201,64 +275,6 @@ class OwnerHomePageActivity : AppCompatActivity() {
         refreshRecyclerView()
         Toast.makeText(this, "Event Berhasil Dihapus!", Toast.LENGTH_SHORT).show()
     }
-
-    private fun refreshRecyclerView() {
-        loadEventsWithoutNewest()
-        loadEvents()
-        loadNewestEvent()
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    private fun loadNewestEvent() {
-        firestore.collection("events")
-            .orderBy("createdAt", Query.Direction.DESCENDING)
-            .limit(1)
-            .get()
-            .addOnSuccessListener { querySnapshot ->
-                if (querySnapshot.documents.isNotEmpty()) {
-                    val event = querySnapshot.documents[0].toObject(EventModel::class.java)
-                    if (event != null) {
-                        newEvent.clear()
-                        newEvent.add(event)
-                        newEventAdapter.notifyDataSetChanged()
-                    }
-                }
-            }
-            .addOnFailureListener {
-                Toast.makeText(this, "Failed to load the newest event", Toast.LENGTH_SHORT).show()
-            }
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    private fun loadEventsWithoutNewest() {
-        firestore.collection("events")
-            .get()
-            .addOnSuccessListener { querySnapshot ->
-                allEventWithoutLatest.clear()
-                val allEvents = querySnapshot.documents.mapNotNull { doc ->
-                    val event = doc.toObject(EventModel::class.java)
-                    event?.apply { id = doc.id }
-                }
-
-                val sortedEvents = allEvents.sortedByDescending { it.createdAt }
-                if (sortedEvents.isNotEmpty()) {
-                    allEventWithoutLatest.addAll(sortedEvents.drop(1))
-                }
-
-                eventAdapter.notifyDataSetChanged()
-                eventWithoutLatestAdapter.notifyDataSetChanged()
-                newEventAdapter.notifyDataSetChanged()
-
-                if (sortedEvents.isNotEmpty()) {
-                    val latestEvent = sortedEvents.first()
-                    eventWithoutLatestAdapter.updateLatestEvent(latestEvent)
-                }
-            }
-            .addOnFailureListener { e ->
-                Toast.makeText(this, "Failed to load events: ${e.message}", Toast.LENGTH_SHORT).show()
-            }
-    }
-
 
     private fun getCurrentFormattedDate(): String {
         val sdf = SimpleDateFormat("HH:mm:ss, dd:MM:yyyy", Locale.getDefault())
